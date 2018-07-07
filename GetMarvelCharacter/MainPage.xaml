@@ -8,6 +8,9 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock x:Name="LblError" TextWrapping="Wrap" TextAlignment="Center" Margin="447,125,0,0" Width="265" Height="78" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Image Name="imgBackground" RequestedTheme="Light" Opacity="0.5" Height="480" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <TextBlock x:Name="LblCharacter" TextWrapping="Wrap" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
 
     </Grid>
 </Page>
