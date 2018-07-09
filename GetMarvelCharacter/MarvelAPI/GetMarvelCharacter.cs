@@ -15,8 +15,8 @@ namespace GetMarvelCharacter.MarvelAPI
 {
     class GetMarvelCharacter
     {
-        private const string publickey = "your public key";
-        private const string privatekey = "your private key";
+        private const string publickey = "enter key";
+        private const string privatekey = "enter key";
 
         public async static Task<RootObject> GetCharacter(int CharacterID)
         {
@@ -33,18 +33,25 @@ namespace GetMarvelCharacter.MarvelAPI
                 var ms = new MemoryStream(Encoding.UTF8.GetBytes(result));
                 if (response.IsSuccessStatusCode == true)
                 {
-                    var data = (RootObject)serializer.ReadObject(ms);
-                    return data;
+                   if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable() == true)
+                    {
+                        var data = (RootObject)serializer.ReadObject(ms);
+                        return data;
+                    }
+                    else
+                   {
+                        return null;
+                    }
                 }
-                else
-                {
-                    return null;
+               else
+               {
+                   return null;
                 }
                
             }
-            catch (SerializationException)
+            catch 
             {
-                throw new SerializationException("You can't authenticate to the API");
+             return null;
             }
         }
 

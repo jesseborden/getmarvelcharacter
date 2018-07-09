@@ -33,7 +33,7 @@ namespace GetMarvelCharacter
             }
             catch
             {
-                LblError.Text = "can't set marvel character. Is the network connection down?";
+                LblError.Text = "Can't set marvel character.";
             }
         }
         private void GetMarvelCharacter()
@@ -41,13 +41,13 @@ namespace GetMarvelCharacter
 
             var backgroundtimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(30)
+                Interval = TimeSpan.FromSeconds(20)
             };
             backgroundtimer.Tick += async (o, e) =>
             {
+                //Try to get Iron Man
                 MarvelAPI.RootObject mycharacter = await MarvelAPI.GetMarvelCharacter.GetCharacter(1009610);
-
-                //Change Background to Iron Man
+                //Make sure you recieved good data. Class returns null if something is broken.
                 if (mycharacter != null)
                 {
                     int resultindex = (mycharacter.data.results.Count) - 1;
@@ -55,6 +55,7 @@ namespace GetMarvelCharacter
                     int randomindex = random.Next(0, resultindex);
                     string badimage = "image_not_available";
                     string imageurl = mycharacter.data.results[randomindex].thumbnail.path + "." + mycharacter.data.results[randomindex].thumbnail.extension;
+                    //If the image is not available, change background to wonderwoman image. You need to add your own image, I am only providing a blank image.
                     if (imageurl.Contains(badimage))
                     {
                         imgBackground.Source = new BitmapImage(new Uri(this.BaseUri, "Assets/Backgrounds/wonderwoman.png"));
